@@ -16,7 +16,6 @@ class AppRoute extends $AppRoute {
           path: '/',
           page: HomeScreen.page,
           children: [
-            // Should be Bottom stack
             AutoRoute(path: 'bottomTabs', page: BottomTabRoute.page, children: [
               AutoRoute(
                 initial: true,
@@ -28,8 +27,12 @@ class AppRoute extends $AppRoute {
                 page: CharacterDetailScreens.page,
               ),
             ]),
-            AutoRoute(page: CounterPage.page, path: 'counter'),
-            AutoRoute(page: TimerPage.page, path: 'page1'),
+            AutoRoute(page: BlocPraticeRoute.page, path: 'bloc', children: [
+              AutoRoute(page: BlocPraticePage.page, path: ''),
+              AutoRoute(page: CounterPage.page, path: 'counter'),
+              AutoRoute(page: TimerPage.page, path: 'timer'),
+              AutoRoute(page: PostPage.page, path: 'postsList'),
+            ]),
           ]),
       // Stack Authenticate (public page)
       AutoRoute(
@@ -52,4 +55,9 @@ class BottomTabPage extends AutoRouter {
 @RoutePage(name: 'Authenticate')
 class AuthenticatePage extends AutoRouter {
   const AuthenticatePage({super.key});
+}
+
+@RoutePage(name: 'BlocPraticeRoute')
+class BlocPratice extends AutoRouter {
+  const BlocPratice({super.key});
 }

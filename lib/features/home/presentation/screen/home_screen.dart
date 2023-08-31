@@ -12,8 +12,7 @@ class HomeScreen extends StatelessWidget {
       // routes used here must be declared as children
       // routes of /dashboard
       routes: const [
-        TimerPage(),
-        CounterPage(),
+        BlocPraticePage(),
         BottomTabRoute(),
       ],
       transitionBuilder: (context, child, animation) => FadeTransition(
@@ -38,9 +37,7 @@ class HomeScreen extends StatelessWidget {
               },
               items: const [
                 BottomNavigationBarItem(
-                    label: 'Timer', icon: Icon(Icons.timer)),
-                BottomNavigationBarItem(
-                    label: 'Counter', icon: Icon(Icons.countertops)),
+                    label: 'Pratice', icon: Icon(Icons.note)),
                 BottomNavigationBarItem(
                     label: 'Settings', icon: Icon(Icons.settings)),
               ],

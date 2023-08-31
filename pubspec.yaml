@@ -39,11 +39,16 @@ dependencies:
   cupertino_icons: ^1.0.2
   #route
   auto_route: ^7.8.0
-  # Bloc for state management
+  # state management
   bloc: ^8.1.1
   flutter_bloc: ^8.1.3
+  bloc_concurrency: ^0.2.2
   provider: ^6.0.2
   equatable: ^2.0.5
+  # network
+  http: ^1.1.0
+  stream_transform: ^2.1.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
