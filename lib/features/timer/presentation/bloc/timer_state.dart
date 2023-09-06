@@ -5,6 +5,8 @@ sealed class TimerState extends Equatable {
   final int duration;
   @override
   List<Object> get props => [duration];
+
+  Map<String, dynamic> toJson() => {'duration': duration.toString()};
 }
 
 final class TimerInitial extends TimerState {

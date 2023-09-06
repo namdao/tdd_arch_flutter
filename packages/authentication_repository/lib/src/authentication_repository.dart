@@ -16,8 +16,9 @@ class AuthenticationRepository {
     String otp,
   ) async {
     _controller.add(AuthenticationStatus.authenticated);
-    // await Future.delayed(const Duration(milliseconds: 300),
-    //     () => _controller.add(AuthenticationStatus.authenticated));
+    // await Future.delayed(const Duration(milliseconds: 300), () {
+    //   return _controller.add(AuthenticationStatus.authenticated);
+    // });
   }
 
   void logOut() {

@@ -11,25 +11,25 @@
 import 'package:auto_route/auto_route.dart' as _i12;
 import 'package:flutter/material.dart' as _i13;
 import 'package:tdd_architecture_course/config/routes/app_routes.dart' as _i1;
-import 'package:tdd_architecture_course/features/auth/presentation/pages/login/login_page.dart'
-    as _i7;
-import 'package:tdd_architecture_course/features/auth/presentation/pages/login/register_page.dart'
-    as _i10;
-import 'package:tdd_architecture_course/features/characters/presentation/pages/characters/character_detail_page.dart'
-    as _i3;
-import 'package:tdd_architecture_course/features/characters/presentation/pages/characters/character_page.dart'
-    as _i4;
-import 'package:tdd_architecture_course/features/characters/presentation/pages/characters/pag1.dart'
-    as _i8;
-import 'package:tdd_architecture_course/features/counter/presentation/screens/counter_screen.dart'
+import 'package:tdd_architecture_course/features/authentication/presentation/screen/login/login_page.dart'
     as _i5;
+import 'package:tdd_architecture_course/features/authentication/presentation/screen/login/register_page.dart'
+    as _i7;
+import 'package:tdd_architecture_course/features/counter/presentation/screens/counter_screen.dart'
+    as _i3;
 import 'package:tdd_architecture_course/features/home/presentation/screen/bloc_pratice_screen.dart'
     as _i2;
 import 'package:tdd_architecture_course/features/home/presentation/screen/home_screen.dart'
-    as _i6;
+    as _i4;
 import 'package:tdd_architecture_course/features/posts/presentation/screen/posts_screen.dart'
+    as _i6;
+import 'package:tdd_architecture_course/features/settings/presentation/screen/characters/setting_screen.dart'
+    as _i8;
+import 'package:tdd_architecture_course/features/splash/presentation/screen/splash_page.dart'
     as _i9;
 import 'package:tdd_architecture_course/features/timer/presentation/screens/timer_screen.dart'
+    as _i10;
+import 'package:tdd_architecture_course/features/todo/presentation/screen/todo_screen.dart'
     as _i11;
 
 abstract class $AppRoute extends _i12.RootStackRouter {
@@ -61,28 +61,16 @@ abstract class $AppRoute extends _i12.RootStackRouter {
         child: const _i1.BottomTabPage(),
       );
     },
-    CharacterDetailScreens.name: (routeData) {
-      return _i12.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const _i3.CharacterDetailPage(),
-      );
-    },
-    CharacterScreens.name: (routeData) {
-      return _i12.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const _i4.CharacterPage(),
-      );
-    },
     CounterPage.name: (routeData) {
       return _i12.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i5.CounterScreen(),
+        child: const _i3.CounterScreen(),
       );
     },
     HomeScreen.name: (routeData) {
       return _i12.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i6.HomeScreen(),
+        child: const _i4.HomeScreen(),
       );
     },
     LoginScreens.name: (routeData) {
@@ -90,34 +78,46 @@ abstract class $AppRoute extends _i12.RootStackRouter {
           orElse: () => const LoginScreensArgs());
       return _i12.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i7.LoginPages(
+        child: _i5.LoginPages(
           key: args.key,
           onLoginResult: args.onLoginResult,
         ),
       );
     },
-    Page1.name: (routeData) {
-      return _i12.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: _i8.Page1(),
-      );
-    },
     PostPage.name: (routeData) {
       return _i12.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i9.PostScreen(),
+        child: const _i6.PostScreen(),
       );
     },
     RegisterScreens.name: (routeData) {
       return _i12.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i10.RegisterPages(),
+        child: const _i7.RegisterPages(),
+      );
+    },
+    SettingPage.name: (routeData) {
+      return _i12.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const _i8.SettingScreen(),
+      );
+    },
+    SplashScreen.name: (routeData) {
+      return _i12.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const _i9.SplashPage(),
       );
     },
     TimerPage.name: (routeData) {
       return _i12.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i11.TimerScreen(),
+        child: const _i10.TimerScreen(),
+      );
+    },
+    TodoPages.name: (routeData) {
+      return _i12.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const _i11.TodoScreen(),
       );
     },
   };
@@ -180,35 +180,7 @@ class BottomTabRoute extends _i12.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i3.CharacterDetailPage]
-class CharacterDetailScreens extends _i12.PageRouteInfo<void> {
-  const CharacterDetailScreens({List<_i12.PageRouteInfo>? children})
-      : super(
-          CharacterDetailScreens.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'CharacterDetailScreens';
-
-  static const _i12.PageInfo<void> page = _i12.PageInfo<void>(name);
-}
-
-/// generated route for
-/// [_i4.CharacterPage]
-class CharacterScreens extends _i12.PageRouteInfo<void> {
-  const CharacterScreens({List<_i12.PageRouteInfo>? children})
-      : super(
-          CharacterScreens.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'CharacterScreens';
-
-  static const _i12.PageInfo<void> page = _i12.PageInfo<void>(name);
-}
-
-/// generated route for
-/// [_i5.CounterScreen]
+/// [_i3.CounterScreen]
 class CounterPage extends _i12.PageRouteInfo<void> {
   const CounterPage({List<_i12.PageRouteInfo>? children})
       : super(
@@ -222,7 +194,7 @@ class CounterPage extends _i12.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i6.HomeScreen]
+/// [_i4.HomeScreen]
 class HomeScreen extends _i12.PageRouteInfo<void> {
   const HomeScreen({List<_i12.PageRouteInfo>? children})
       : super(
@@ -236,7 +208,7 @@ class HomeScreen extends _i12.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i7.LoginPages]
+/// [_i5.LoginPages]
 class LoginScreens extends _i12.PageRouteInfo<LoginScreensArgs> {
   LoginScreens({
     _i13.Key? key,
@@ -274,21 +246,7 @@ class LoginScreensArgs {
 }
 
 /// generated route for
-/// [_i8.Page1]
-class Page1 extends _i12.PageRouteInfo<void> {
-  const Page1({List<_i12.PageRouteInfo>? children})
-      : super(
-          Page1.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'Page1';
-
-  static const _i12.PageInfo<void> page = _i12.PageInfo<void>(name);
-}
-
-/// generated route for
-/// [_i9.PostScreen]
+/// [_i6.PostScreen]
 class PostPage extends _i12.PageRouteInfo<void> {
   const PostPage({List<_i12.PageRouteInfo>? children})
       : super(
@@ -302,7 +260,7 @@ class PostPage extends _i12.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i10.RegisterPages]
+/// [_i7.RegisterPages]
 class RegisterScreens extends _i12.PageRouteInfo<void> {
   const RegisterScreens({List<_i12.PageRouteInfo>? children})
       : super(
@@ -316,7 +274,35 @@ class RegisterScreens extends _i12.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i11.TimerScreen]
+/// [_i8.SettingScreen]
+class SettingPage extends _i12.PageRouteInfo<void> {
+  const SettingPage({List<_i12.PageRouteInfo>? children})
+      : super(
+          SettingPage.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'SettingPage';
+
+  static const _i12.PageInfo<void> page = _i12.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i9.SplashPage]
+class SplashScreen extends _i12.PageRouteInfo<void> {
+  const SplashScreen({List<_i12.PageRouteInfo>? children})
+      : super(
+          SplashScreen.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'SplashScreen';
+
+  static const _i12.PageInfo<void> page = _i12.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i10.TimerScreen]
 class TimerPage extends _i12.PageRouteInfo<void> {
   const TimerPage({List<_i12.PageRouteInfo>? children})
       : super(
@@ -325,6 +311,20 @@ class TimerPage extends _i12.PageRouteInfo<void> {
         );
 
   static const String name = 'TimerPage';
+
+  static const _i12.PageInfo<void> page = _i12.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i11.TodoScreen]
+class TodoPages extends _i12.PageRouteInfo<void> {
+  const TodoPages({List<_i12.PageRouteInfo>? children})
+      : super(
+          TodoPages.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'TodoPages';
 
   static const _i12.PageInfo<void> page = _i12.PageInfo<void>(name);
 }

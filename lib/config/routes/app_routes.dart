@@ -1,39 +1,44 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:tdd_architecture_course/config/routes/app_routes.gr.dart';
-import 'package:tdd_architecture_course/config/routes/auth_guard.dart';
 
 // part 'app_routes.gr.dart';
 @AutoRouterConfig(replaceInRouteName: 'Page,Route')
 class AppRoute extends $AppRoute {
-  AppRoute(this.authService);
-  final AuthProviderApp authService;
-
   @override
   List<AutoRoute> get routes {
     return [
-      AutoRoute(
-          guards: [AuthGuardApp(authService)],
-          path: '/',
+      CustomRoute(
+        path: '/',
+        page: SplashScreen.page,
+      ),
+      CustomRoute(
+          path: '/home',
           page: HomeScreen.page,
           children: [
-            AutoRoute(path: 'bottomTabs', page: BottomTabRoute.page, children: [
-              AutoRoute(
-                initial: true,
-                path: 'characters',
-                page: CharacterScreens.page,
-              ),
-              AutoRoute(
-                path: 'child',
-                page: CharacterDetailScreens.page,
-              ),
-            ]),
+            AutoRoute(
+              path: 'bottomTabs',
+              page: BottomTabRoute.page,
+              children: [
+                AutoRoute(
+                  initial: true,
+                  path: 'settings',
+                  page: SettingPage.page,
+                ),
+              ],
+            ),
             AutoRoute(page: BlocPraticeRoute.page, path: 'bloc', children: [
               AutoRoute(page: BlocPraticePage.page, path: ''),
               AutoRoute(page: CounterPage.page, path: 'counter'),
               AutoRoute(page: TimerPage.page, path: 'timer'),
               AutoRoute(page: PostPage.page, path: 'postsList'),
+              AutoRoute(
+                page: TodoPages.page,
+                path: 'todo',
+              ),
             ]),
-          ]),
+          ],
+          transitionsBuilder: TransitionsBuilders.fadeIn,
+          durationInMilliseconds: 700),
       // Stack Authenticate (public page)
       AutoRoute(
           page: Authenticate.page,

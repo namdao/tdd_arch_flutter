@@ -1,15 +1,16 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:tdd_architecture_course/config/routes/app_routes.gr.dart';
-import 'package:provider/provider.dart';
-import 'package:tdd_architecture_course/config/routes/auth_guard.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tdd_architecture_course/features/authentication/presentation/bloc/authentication_bloc.dart';
 
-@RoutePage(name: 'CharacterScreens')
-class CharacterPage extends StatelessWidget {
-  const CharacterPage({super.key});
+@RoutePage(name: 'SettingPage')
+class SettingScreen extends StatelessWidget {
+  const SettingScreen({super.key});
 
-  _onGoBack(BuildContext context) {
-    context.router.pop();
+  _onLogout(BuildContext context) {
+    // context.router.pop();
+    BlocProvider.of<AuthenticationBloc>(context)
+        .add(AuthenticationLogoutRequest());
     // context.router.back();
   }
 
@@ -33,11 +34,7 @@ class CharacterPage extends StatelessWidget {
           child: Column(
             children: [
               TextButton(
-                  onPressed: () => {
-                        context.read<AuthProviderApp>().logout(),
-                        // Provider.of<AuthProviderApp>(context, listen: false)
-                        //     .logout(),
-                      },
+                  onPressed: () => _onLogout(context),
                   child: const Text('logout')),
               // Consumer<AuthProviderApp>(
               //     builder: (context, authProvider, child) {
@@ -48,9 +45,6 @@ class CharacterPage extends StatelessWidget {
               //       },
               //       child: const Text('login'));
               // }),
-              TextButton(
-                  onPressed: () => _onNavigateChild(context),
-                  child: const Text('go child detail'))
             ],
           ),
         )));

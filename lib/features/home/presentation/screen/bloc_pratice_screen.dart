@@ -14,6 +14,11 @@ class BlocPraticeScreen extends StatelessWidget {
         child: Column(children: [
           TextButton(
               onPressed: () {
+                context.navigateNamedTo('bloc/todo');
+              },
+              child: const Text('Todo app')),
+          TextButton(
+              onPressed: () {
                 context.navigateNamedTo('bloc/counter');
               },
               child: const Text('Counter')),

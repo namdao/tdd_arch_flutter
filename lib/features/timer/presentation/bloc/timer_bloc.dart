@@ -2,11 +2,12 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:tdd_architecture_course/features/timer/presentation/screens/ticker.dart';
 part 'timer_event.dart';
 part 'timer_state.dart';
 
-class TimerBloc extends Bloc<TimerEvent, TimerState> {
+class TimerBloc extends HydratedBloc<TimerEvent, TimerState> {
   TimerBloc({required Ticker ticker})
       : _ticker = ticker,
         super(const TimerInitial(_duration)) {
@@ -61,5 +62,21 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
           ? TimerRunInProgress(event.duration)
           : const TimerRunComplete(),
     );
+  }
+
+  @override
+  TimerState fromJson(Map<String, dynamic> json) {
+    final getDataPersist = json['timestate'];
+    print('fromTimerState:   ${json}');
+    return getDataPersist as TimerState;
+  }
+
+  @override
+  Map<String, dynamic> toJson(TimerState state) {
+    print('toTimestate: ${state}');
+    final setDataPersist = state.toJson();
+    return {
+      'timestate': setDataPersist,
+    };
   }
 }
