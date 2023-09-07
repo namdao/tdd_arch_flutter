@@ -1,3 +1,4 @@
+import 'package:authentication_repository/authentication_repository.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -43,12 +44,14 @@ class _LogoAppState extends State<SplashPage>
       ..addStatusListener((status) {
         if (status == AnimationStatus.completed) {
           final state = BlocProvider.of<AuthenticationBloc>(context).state;
-          if (state is UnAuthenticated || state is AuthenInitial) {
-            AutoRouter.of(context)
-                .pushAndPopUntil(LoginScreens(), predicate: (_) => true);
-          } else if (state is Authenticated) {
-            AutoRouter.of(context)
-                .pushAndPopUntil(const HomeScreen(), predicate: (_) => true);
+          switch (state.status) {
+            case AuthenticationStatus.unauthenticated:
+            case AuthenticationStatus.unknown:
+              AutoRouter.of(context)
+                  .pushAndPopUntil(LoginScreens(), predicate: (_) => true);
+            case AuthenticationStatus.authenticated:
+              AutoRouter.of(context)
+                  .pushAndPopUntil(const HomeScreen(), predicate: (_) => true);
           }
         }
       });
@@ -65,12 +68,14 @@ class _LogoAppState extends State<SplashPage>
   Widget build(BuildContext context) {
     return BlocListener<AuthenticationBloc, AuthenticationState>(
       listener: (context, state) {
-        if (state is UnAuthenticated) {
-          AutoRouter.of(context)
-              .pushAndPopUntil(LoginScreens(), predicate: (_) => true);
-        } else if (state is Authenticated) {
-          AutoRouter.of(context)
-              .pushAndPopUntil(const HomeScreen(), predicate: (_) => true);
+        switch (state.status) {
+          case AuthenticationStatus.unauthenticated:
+          case AuthenticationStatus.unknown:
+            AutoRouter.of(context)
+                .pushAndPopUntil(LoginScreens(), predicate: (_) => true);
+          case AuthenticationStatus.authenticated:
+            AutoRouter.of(context)
+                .pushAndPopUntil(const HomeScreen(), predicate: (_) => true);
         }
       },
       child: Container(

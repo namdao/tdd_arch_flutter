@@ -10,8 +10,6 @@ import 'package:tdd_architecture_course/config/routes/app_routes.dart';
 import 'package:tdd_architecture_course/features/authentication/presentation/bloc/authentication_bloc.dart';
 // import 'package:tdd_architecture_course/features/authentication/presentation/bloc/authentication_bloc.dart';
 // import 'package:user_repository/user_repository.dart';
-import 'package:tdd_architecture_course/features/counter/presentation/observer/counter_observer.dart';
-import 'package:tdd_architecture_course/features/todo/presentation/bloc/todo_bloc.dart';
 import 'package:user_repository/user_repository.dart';
 
 void main() async {
@@ -86,28 +84,21 @@ class _AppState extends State<MyApp> {
     //     routerConfig: _appRouter.config(),
     //     debugShowCheckedModeBanner: false);
     return MultiRepositoryProvider(
-      providers: [
-        RepositoryProvider.value(
-          value: _authenticationRepository,
-        ),
-        RepositoryProvider.value(value: _userRepository)
-      ],
-      // value: _authenticationRepository,
-      child: MultiBlocProvider(
         providers: [
-          BlocProvider<AuthenticationBloc>(
-              create: (_) => AuthenticationBloc(
-                  authenticationRepository: _authenticationRepository,
-                  userRepository: _userRepository)),
-          BlocProvider<TodoBloc>(create: (_) => TodoBloc())
+          RepositoryProvider.value(
+            value: _authenticationRepository,
+          ),
+          RepositoryProvider.value(value: _userRepository)
         ],
-        // create: (_) => ,
-        child: MaterialApp.router(
-          title: 'Clean Architect Flutter',
-          routerConfig: _appRouter.config(),
-          debugShowCheckedModeBanner: false,
-        ),
-      ),
-    );
+        child: BlocProvider<AuthenticationBloc>(
+          create: (_) => AuthenticationBloc(
+              authenticationRepository: _authenticationRepository,
+              userRepository: _userRepository),
+          child: MaterialApp.router(
+            title: 'Clean Architect Flutter',
+            routerConfig: _appRouter.config(),
+            debugShowCheckedModeBanner: false,
+          ),
+        ));
   }
 }

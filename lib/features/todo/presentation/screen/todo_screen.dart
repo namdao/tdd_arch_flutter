@@ -6,31 +6,41 @@ import 'package:tdd_architecture_course/features/todo/presentation/screen/todo_a
 import 'package:tdd_architecture_course/features/todo/presentation/widget/task_view_builder.dart';
 
 @RoutePage(name: 'TodoPages')
-class TodoScreen extends StatefulWidget {
+class TodoScreen extends StatelessWidget {
   const TodoScreen({super.key});
 
   @override
-  State<TodoScreen> createState() => _TodoScreenState();
-}
-
-class _TodoScreenState extends State<TodoScreen> {
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: const Text("Todo Screen Example"),
+    return BlocProvider<TodoBloc>(
+      create: (_) => TodoBloc()
+        ..add(
+            TodoFetch()), // sau khi init thì gọi fetch để update giá trị trong model
+      child: BlocBuilder<TodoBloc, TodoState>(
+        builder: (context, state) => Scaffold(
+          appBar: AppBar(
+            title: const Text("Todo Screen Example"),
+          ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () => showDialog(
+              context: context,
+              builder: (innerContext) {
+                return BlocProvider.value(
+                  // truyền context TodoBloc vào trong dialog có thể viết 1 trong 2
+                  // value: BlocProvider.of<TodoBloc>(context),
+                  value: context.watch<TodoBloc>(),
+                  child: BlocBuilder<TodoBloc, TodoState>(
+                    builder: (context, state) =>
+                        const AlertDialog(content: TodoAddScreen()),
+                  ),
+                );
+              },
+            ),
+            child: const Icon(Icons.add),
+          ),
+          body: bodyWidget(),
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            showDialog(
-                context: context,
-                builder: (context) => const AlertDialog(
-                      content: TodoAddScreen(),
-                    ));
-          },
-          child: const Icon(Icons.add),
-        ),
-        body: bodyWidget());
+      ),
+    );
   }
 
   Widget bodyWidget() {

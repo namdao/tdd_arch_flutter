@@ -3,6 +3,13 @@ import 'package:tdd_architecture_course/features/todo/data/model/todo_model.dart
 
 class TodoRepo {
   List<TodoModel> tasks = [];
+
+  set listTask(List<TodoModel> list) {
+    tasks = list;
+  }
+
+  List<TodoModel> get listTask => tasks;
+
   List<TodoModel> addTodo(TodoModel model) {
     tasks.add(model);
     return tasks;

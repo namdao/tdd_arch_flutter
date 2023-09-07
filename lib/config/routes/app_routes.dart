@@ -12,42 +12,46 @@ class AppRoute extends $AppRoute {
         page: SplashScreen.page,
       ),
       CustomRoute(
-          path: '/home',
-          page: HomeScreen.page,
-          children: [
-            AutoRoute(
-              path: 'bottomTabs',
-              page: BottomTabRoute.page,
-              children: [
-                AutoRoute(
-                  initial: true,
-                  path: 'settings',
-                  page: SettingPage.page,
-                ),
-              ],
-            ),
-            AutoRoute(page: BlocPraticeRoute.page, path: 'bloc', children: [
-              AutoRoute(page: BlocPraticePage.page, path: ''),
-              AutoRoute(page: CounterPage.page, path: 'counter'),
-              AutoRoute(page: TimerPage.page, path: 'timer'),
-              AutoRoute(page: PostPage.page, path: 'postsList'),
+        path: '/home',
+        page: HomeScreen.page,
+        children: [
+          AutoRoute(
+            path: 'bottomTabs',
+            page: BottomTabRoute.page,
+            children: [
               AutoRoute(
-                page: TodoPages.page,
-                path: 'todo',
+                initial: true,
+                path: 'settings',
+                page: SettingPage.page,
               ),
-            ]),
-          ],
-          transitionsBuilder: TransitionsBuilders.fadeIn,
-          durationInMilliseconds: 700),
+            ],
+          ),
+          AutoRoute(page: BlocPraticeRoute.page, path: 'bloc', children: [
+            AutoRoute(page: BlocPraticePage.page, path: ''),
+            AutoRoute(page: CounterPage.page, path: 'counter'),
+            AutoRoute(page: TimerPage.page, path: 'timer'),
+            AutoRoute(page: PostPage.page, path: 'postsList'),
+            AutoRoute(
+              page: TodoPages.page,
+              path: 'todo',
+            ),
+          ]),
+        ],
+        transitionsBuilder: TransitionsBuilders.fadeIn,
+        // durationInMilliseconds: 300
+      ),
       // Stack Authenticate (public page)
-      AutoRoute(
-          page: Authenticate.page,
-          path: '/auth',
-          keepHistory: false,
-          children: [
-            AutoRoute(page: LoginScreens.page, path: ''),
-            AutoRoute(page: RegisterScreens.page, path: 'register')
-          ])
+      CustomRoute(
+        page: Authenticate.page,
+        path: '/auth',
+        keepHistory: false,
+        children: [
+          AutoRoute(page: LoginScreens.page, path: ''),
+          AutoRoute(page: RegisterScreens.page, path: 'register')
+        ],
+        transitionsBuilder: TransitionsBuilders.fadeIn,
+        // durationInMilliseconds: 300
+      ),
     ];
   }
 }

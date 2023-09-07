@@ -1,4 +1,3 @@
-import 'package:equatable/equatable.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:tdd_architecture_course/features/todo/data/model/todo_model.dart';
 import 'package:tdd_architecture_course/features/todo/data/repository/todo_repository.dart';
@@ -10,7 +9,10 @@ class TodoBloc extends HydratedBloc<TodoEvent, TodoState> {
   final TodoRepo todoRepo = TodoRepo();
   TodoBloc() : super(TodoInitial()) {
     on<TodoFetch>((event, emit) async {
-      emit(TodoStateLoaded(todoRepo.tasks));
+      final List<TodoModel> listFetchTask = state.task;
+      todoRepo.listTask = listFetchTask;
+      emit(TodoStateLoaded(listFetchTask));
+      // emit(TodoStateLoaded(todoRepo.tasks));
     });
     on<TodoAdd>((event, emit) async {
       emit(TodoStateLoaded(todoRepo.addTodo(event.task)));
@@ -25,7 +27,6 @@ class TodoBloc extends HydratedBloc<TodoEvent, TodoState> {
 
   @override
   TodoState? fromJson(Map<String, dynamic> json) {
-    // print('fromJson  $json ');
     if (json['data'] != null && (json['data'] as List<dynamic>).isNotEmpty) {
       return TodoStateLoaded((json['data'] as List<dynamic>)
           .map((e) => TodoModel.fromJson(e))
@@ -35,7 +36,6 @@ class TodoBloc extends HydratedBloc<TodoEvent, TodoState> {
 
   @override
   Map<String, dynamic>? toJson(TodoState state) {
-    // print('toJson  $state ');
     if (state is TodoStateLoaded) {
       return {'data': state.task.map((e) => e.toJson()).toList()};
     }
