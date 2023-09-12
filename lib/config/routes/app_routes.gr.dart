@@ -78,10 +78,7 @@ abstract class $AppRoute extends _i12.RootStackRouter {
           orElse: () => const LoginScreensArgs());
       return _i12.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i5.LoginPages(
-          key: args.key,
-          onLoginResult: args.onLoginResult,
-        ),
+        child: _i5.LoginPages(key: args.key),
       );
     },
     PostPage.name: (routeData) {
@@ -212,14 +209,10 @@ class HomeScreen extends _i12.PageRouteInfo<void> {
 class LoginScreens extends _i12.PageRouteInfo<LoginScreensArgs> {
   LoginScreens({
     _i13.Key? key,
-    void Function()? onLoginResult,
     List<_i12.PageRouteInfo>? children,
   }) : super(
           LoginScreens.name,
-          args: LoginScreensArgs(
-            key: key,
-            onLoginResult: onLoginResult,
-          ),
+          args: LoginScreensArgs(key: key),
           initialChildren: children,
         );
 
@@ -230,18 +223,13 @@ class LoginScreens extends _i12.PageRouteInfo<LoginScreensArgs> {
 }
 
 class LoginScreensArgs {
-  const LoginScreensArgs({
-    this.key,
-    this.onLoginResult,
-  });
+  const LoginScreensArgs({this.key});
 
   final _i13.Key? key;
 
-  final void Function()? onLoginResult;
-
   @override
   String toString() {
-    return 'LoginScreensArgs{key: $key, onLoginResult: $onLoginResult}';
+    return 'LoginScreensArgs{key: $key}';
   }
 }
 

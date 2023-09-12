@@ -3,7 +3,10 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tdd_architecture_course/config/routes/app_routes.gr.dart';
+import 'package:tdd_architecture_course/core/dio/http_app.dart';
+import 'package:tdd_architecture_course/core/service_locator.dart';
 import 'package:tdd_architecture_course/features/authentication/presentation/bloc/authentication_bloc.dart';
+import 'package:tdd_architecture_course/utils/utilities.dart';
 
 @RoutePage(name: 'SplashScreen')
 class SplashPage extends StatefulWidget {
@@ -16,6 +19,7 @@ class SplashPage extends StatefulWidget {
 class AnimatedLogo extends AnimatedWidget {
   const AnimatedLogo({super.key, required Animation<double> animation})
       : super(listenable: animation);
+
   @override
   Widget build(BuildContext context) {
     final animation = listenable as Animation<double>;
