@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tdd_architecture_course/config/routes/app_routes.gr.dart';
 import 'package:tdd_architecture_course/features/authentication/presentation/bloc/authentication_bloc.dart';
 
 @RoutePage(name: 'SettingPage')
@@ -12,14 +13,6 @@ class SettingScreen extends StatelessWidget {
     BlocProvider.of<AuthenticationBloc>(context)
         .add(AuthenticationLogoutRequest());
     // context.router.back();
-  }
-
-  _onPage1(BuildContext context) {
-    context.router.navigateNamed('/page1');
-  }
-
-  _onNavigateChild(BuildContext context) {
-    context.router.navigateNamed('/bottomTabs/child');
   }
 
   @override

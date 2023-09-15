@@ -14,35 +14,35 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-GenerateOtp _$GenerateOtpFromJson(Map<String, dynamic> json) {
-  return _GenerateOtp.fromJson(json);
+GenerateOtpRequest _$GenerateOtpRequestFromJson(Map<String, dynamic> json) {
+  return _GenerateOtpRequest.fromJson(json);
 }
 
 /// @nodoc
-mixin _$GenerateOtp {
+mixin _$GenerateOtpRequest {
   String get mobile => throw _privateConstructorUsedError;
   String get action => throw _privateConstructorUsedError;
   String get deviceId => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $GenerateOtpCopyWith<GenerateOtp> get copyWith =>
+  $GenerateOtpRequestCopyWith<GenerateOtpRequest> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $GenerateOtpCopyWith<$Res> {
-  factory $GenerateOtpCopyWith(
-          GenerateOtp value, $Res Function(GenerateOtp) then) =
-      _$GenerateOtpCopyWithImpl<$Res, GenerateOtp>;
+abstract class $GenerateOtpRequestCopyWith<$Res> {
+  factory $GenerateOtpRequestCopyWith(
+          GenerateOtpRequest value, $Res Function(GenerateOtpRequest) then) =
+      _$GenerateOtpRequestCopyWithImpl<$Res, GenerateOtpRequest>;
   @useResult
   $Res call({String mobile, String action, String deviceId});
 }
 
 /// @nodoc
-class _$GenerateOtpCopyWithImpl<$Res, $Val extends GenerateOtp>
-    implements $GenerateOtpCopyWith<$Res> {
-  _$GenerateOtpCopyWithImpl(this._value, this._then);
+class _$GenerateOtpRequestCopyWithImpl<$Res, $Val extends GenerateOtpRequest>
+    implements $GenerateOtpRequestCopyWith<$Res> {
+  _$GenerateOtpRequestCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -74,22 +74,22 @@ class _$GenerateOtpCopyWithImpl<$Res, $Val extends GenerateOtp>
 }
 
 /// @nodoc
-abstract class _$$_GenerateOtpCopyWith<$Res>
-    implements $GenerateOtpCopyWith<$Res> {
-  factory _$$_GenerateOtpCopyWith(
-          _$_GenerateOtp value, $Res Function(_$_GenerateOtp) then) =
-      __$$_GenerateOtpCopyWithImpl<$Res>;
+abstract class _$$_GenerateOtpRequestCopyWith<$Res>
+    implements $GenerateOtpRequestCopyWith<$Res> {
+  factory _$$_GenerateOtpRequestCopyWith(_$_GenerateOtpRequest value,
+          $Res Function(_$_GenerateOtpRequest) then) =
+      __$$_GenerateOtpRequestCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String mobile, String action, String deviceId});
 }
 
 /// @nodoc
-class __$$_GenerateOtpCopyWithImpl<$Res>
-    extends _$GenerateOtpCopyWithImpl<$Res, _$_GenerateOtp>
-    implements _$$_GenerateOtpCopyWith<$Res> {
-  __$$_GenerateOtpCopyWithImpl(
-      _$_GenerateOtp _value, $Res Function(_$_GenerateOtp) _then)
+class __$$_GenerateOtpRequestCopyWithImpl<$Res>
+    extends _$GenerateOtpRequestCopyWithImpl<$Res, _$_GenerateOtpRequest>
+    implements _$$_GenerateOtpRequestCopyWith<$Res> {
+  __$$_GenerateOtpRequestCopyWithImpl(
+      _$_GenerateOtpRequest _value, $Res Function(_$_GenerateOtpRequest) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -99,7 +99,7 @@ class __$$_GenerateOtpCopyWithImpl<$Res>
     Object? action = null,
     Object? deviceId = null,
   }) {
-    return _then(_$_GenerateOtp(
+    return _then(_$_GenerateOtpRequest(
       mobile: null == mobile
           ? _value.mobile
           : mobile // ignore: cast_nullable_to_non_nullable
@@ -118,12 +118,12 @@ class __$$_GenerateOtpCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_GenerateOtp implements _GenerateOtp {
-  _$_GenerateOtp(
+class _$_GenerateOtpRequest implements _GenerateOtpRequest {
+  _$_GenerateOtpRequest(
       {this.mobile = '', this.action = 'GENERATE_OTP', this.deviceId = ''});
 
-  factory _$_GenerateOtp.fromJson(Map<String, dynamic> json) =>
-      _$$_GenerateOtpFromJson(json);
+  factory _$_GenerateOtpRequest.fromJson(Map<String, dynamic> json) =>
+      _$$_GenerateOtpRequestFromJson(json);
 
   @override
   @JsonKey()
@@ -137,14 +137,14 @@ class _$_GenerateOtp implements _GenerateOtp {
 
   @override
   String toString() {
-    return 'GenerateOtp(mobile: $mobile, action: $action, deviceId: $deviceId)';
+    return 'GenerateOtpRequest(mobile: $mobile, action: $action, deviceId: $deviceId)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_GenerateOtp &&
+            other is _$_GenerateOtpRequest &&
             (identical(other.mobile, mobile) || other.mobile == mobile) &&
             (identical(other.action, action) || other.action == action) &&
             (identical(other.deviceId, deviceId) ||
@@ -158,25 +158,26 @@ class _$_GenerateOtp implements _GenerateOtp {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_GenerateOtpCopyWith<_$_GenerateOtp> get copyWith =>
-      __$$_GenerateOtpCopyWithImpl<_$_GenerateOtp>(this, _$identity);
+  _$$_GenerateOtpRequestCopyWith<_$_GenerateOtpRequest> get copyWith =>
+      __$$_GenerateOtpRequestCopyWithImpl<_$_GenerateOtpRequest>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_GenerateOtpToJson(
+    return _$$_GenerateOtpRequestToJson(
       this,
     );
   }
 }
 
-abstract class _GenerateOtp implements GenerateOtp {
-  factory _GenerateOtp(
+abstract class _GenerateOtpRequest implements GenerateOtpRequest {
+  factory _GenerateOtpRequest(
       {final String mobile,
       final String action,
-      final String deviceId}) = _$_GenerateOtp;
+      final String deviceId}) = _$_GenerateOtpRequest;
 
-  factory _GenerateOtp.fromJson(Map<String, dynamic> json) =
-      _$_GenerateOtp.fromJson;
+  factory _GenerateOtpRequest.fromJson(Map<String, dynamic> json) =
+      _$_GenerateOtpRequest.fromJson;
 
   @override
   String get mobile;
@@ -186,6 +187,6 @@ abstract class _GenerateOtp implements GenerateOtp {
   String get deviceId;
   @override
   @JsonKey(ignore: true)
-  _$$_GenerateOtpCopyWith<_$_GenerateOtp> get copyWith =>
+  _$$_GenerateOtpRequestCopyWith<_$_GenerateOtpRequest> get copyWith =>
       throw _privateConstructorUsedError;
 }

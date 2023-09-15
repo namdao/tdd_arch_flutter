@@ -9,7 +9,8 @@ abstract class Failure extends Equatable {
 }
 
 class ConnectionFailure extends Failure {
-  const ConnectionFailure(String message) : super(message);
+  final int errorCode;
+  const ConnectionFailure(String message, this.errorCode) : super(message);
 }
 
 class Exception extends Failure {

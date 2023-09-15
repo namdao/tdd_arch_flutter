@@ -3,10 +3,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tdd_architecture_course/config/routes/app_routes.gr.dart';
-import 'package:tdd_architecture_course/core/dio/http_app.dart';
-import 'package:tdd_architecture_course/core/service_locator.dart';
 import 'package:tdd_architecture_course/features/authentication/presentation/bloc/authentication_bloc.dart';
-import 'package:tdd_architecture_course/utils/utilities.dart';
 
 @RoutePage(name: 'SplashScreen')
 class SplashPage extends StatefulWidget {
@@ -43,16 +40,16 @@ class _LogoAppState extends State<SplashPage>
   void initState() {
     super.initState();
     controller =
-        AnimationController(vsync: this, duration: const Duration(seconds: 2));
-    animation = Tween<double>(begin: 100, end: 300).animate(controller)
+        AnimationController(vsync: this, duration: const Duration(seconds: 1));
+    animation = Tween<double>(begin: 200, end: 300).animate(controller)
       ..addStatusListener((status) {
         if (status == AnimationStatus.completed) {
           final state = BlocProvider.of<AuthenticationBloc>(context).state;
           switch (state.status) {
             case AuthenticationStatus.unauthenticated:
             case AuthenticationStatus.unknown:
-              AutoRouter.of(context)
-                  .pushAndPopUntil(LoginScreens(), predicate: (_) => true);
+              AutoRouter.of(context).pushAndPopUntil(const Authenticate(),
+                  predicate: (_) => true);
             case AuthenticationStatus.authenticated:
               AutoRouter.of(context)
                   .pushAndPopUntil(const HomeScreen(), predicate: (_) => true);
@@ -76,7 +73,7 @@ class _LogoAppState extends State<SplashPage>
           case AuthenticationStatus.unauthenticated:
           case AuthenticationStatus.unknown:
             AutoRouter.of(context)
-                .pushAndPopUntil(LoginScreens(), predicate: (_) => true);
+                .pushAndPopUntil(const Authenticate(), predicate: (_) => true);
           case AuthenticationStatus.authenticated:
             AutoRouter.of(context)
                 .pushAndPopUntil(const HomeScreen(), predicate: (_) => true);

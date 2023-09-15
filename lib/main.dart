@@ -1,5 +1,6 @@
 // import 'package:authentication_repository/authentication_repository.dart';
 import 'package:authentication_repository/authentication_repository.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,9 +8,11 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 // import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tdd_architecture_course/config/routes/app_routes.dart';
+import 'package:tdd_architecture_course/config/routes/app_routes.gr.dart';
 import 'package:tdd_architecture_course/core/dio/http_app.dart';
 import 'package:tdd_architecture_course/core/service_locator.dart';
 import 'package:tdd_architecture_course/features/authentication/presentation/bloc/authentication_bloc.dart';
+import 'package:tdd_architecture_course/features/todo/presentation/bloc/todo_bloc.dart';
 import 'package:tdd_architecture_course/utils/utilities.dart';
 // import 'package:tdd_architecture_course/features/authentication/presentation/bloc/authentication_bloc.dart';
 // import 'package:user_repository/user_repository.dart';
@@ -32,9 +35,6 @@ void main() async {
 /******** Config app with Provider *********/
 class MyApp extends StatelessWidget {
   final AppRoute _appRouter = AppRoute();
-  // final AuthenticationRepository _authenticationRepository =
-  //     AuthenticationRepository();
-  // final UserRepository _userRepository = UserRepository();
 
   MyApp({super.key});
 
@@ -42,11 +42,16 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<AuthenticationBloc>(
         create: (_) => AuthenticationBloc(),
-        child: MaterialApp.router(
-          title: 'Clean Architect Flutter',
-          routerConfig: _appRouter.config(),
-          debugShowCheckedModeBanner: false,
-        ));
+        child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+            builder: (context, state) {
+          return MaterialApp.router(
+            title: 'Clean Architect Flutter',
+            routerConfig: _appRouter.config(),
+            debugShowCheckedModeBanner: false,
+          );
+        }));
+    // final AuthenticationRepository _authenticationRepository =
+    //     AuthenticationRepository();
     // return MultiRepositoryProvider(
     //     providers: [
     //       RepositoryProvider.value(
@@ -56,8 +61,8 @@ class MyApp extends StatelessWidget {
     //     ],
     //     child: BlocProvider<AuthenticationBloc>(
     //       create: (_) => AuthenticationBloc(
-    //           authenticationRepository: _authenticationRepository,
-    //           userRepository: _userRepository),
+    //           // authenticationRepository: _authenticationRepository,
+    //           _userRepository: _userRepository),
     //       child: MaterialApp.router(
     //         title: 'Clean Architect Flutter',
     //         routerConfig: _appRouter.config(),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:tdd_architecture_course/config/routes/app_routes.gr.dart';
 
 @RoutePage(name: 'HomeScreen')
+// class HomeScreen extends AutoRouter {}
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
   @override
@@ -11,10 +12,7 @@ class HomeScreen extends StatelessWidget {
       // list of your tab routes
       // routes used here must be declared as children
       // routes of /dashboard
-      routes: const [
-        BlocPraticePage(),
-        BottomTabRoute(),
-      ],
+      routes: const [BlocPraticePage(), BottomTabRoute()],
       transitionBuilder: (context, child, animation) => FadeTransition(
         opacity: animation,
         // the passed child is technically our animated selected-tab page

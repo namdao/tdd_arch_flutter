@@ -4,13 +4,13 @@ part 'generate_otp_request.freezed.dart';
 part 'generate_otp_request.g.dart';
 
 @freezed
-class GenerateOtp with _$GenerateOtp {
-  factory GenerateOtp({
+class GenerateOtpRequest with _$GenerateOtpRequest {
+  factory GenerateOtpRequest({
     @Default('') String mobile,
     @Default('GENERATE_OTP') String action,
     @Default('') String deviceId,
-  }) = _GenerateOtp;
+  }) = _GenerateOtpRequest;
 
-  factory GenerateOtp.fromJson(Map<String, Object?> json) =>
-      _$GenerateOtpFromJson(json);
+  factory GenerateOtpRequest.fromJson(Map<String, Object?> json) =>
+      _$GenerateOtpRequestFromJson(json);
 }

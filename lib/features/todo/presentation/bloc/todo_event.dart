@@ -19,3 +19,5 @@ final class TodoUpdate extends TodoEvent {
   final bool status;
   TodoUpdate(this.id, this.status);
 }
+
+final class TodoRemoveAll extends TodoEvent {}

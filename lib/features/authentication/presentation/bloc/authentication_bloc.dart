@@ -1,8 +1,10 @@
 import 'dart:async';
 
 import 'package:authentication_repository/authentication_repository.dart';
+import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:tdd_architecture_course/features/todo/presentation/bloc/todo_bloc.dart';
 import 'package:user_repository/user_repository.dart';
 
 part 'authentication_event.dart';
@@ -10,9 +12,9 @@ part 'authentication_state.dart';
 
 class AuthenticationBloc
     extends HydratedBloc<AuthenticationEvent, AuthenticationState> {
-  // AuthenticationBloc(
-  //     {required this.authenticationRepository, required this.userRepository})
-  //     : super(const AuthenticationState.unknown()) {
+  // AuthenticationBloc({required UserRepository userRepository})
+  //     : _userRepository = userRepository,
+  //       super(const AuthenticationState.unknown()) {
   //   on<AuthenticationStatusChanged>(_onAuthenticationStatusChanged);
   //   on<AuthenticationLogoutRequest>(_onAuthenticationLogoutRequest);
   // }
@@ -22,7 +24,7 @@ class AuthenticationBloc
   }
 
   // final AuthenticationRepository _authenticationRepository;
-  // final UserRepository _userRepository;
+  final UserRepository _userRepository = UserRepository();
 
   late StreamSubscription<AuthenticationStatus>
       _authenticationStatusSubscription;
@@ -39,10 +41,10 @@ class AuthenticationBloc
       case AuthenticationStatus.unauthenticated:
         return emit(const AuthenticationState.unauthenticated());
       case AuthenticationStatus.authenticated:
-      // final user = await _tryGetUser();
-      // return emit(user != null
-      //     ? AuthenticationState.authenticated(user)
-      //     : const AuthenticationState.unauthenticated());
+        final user = await _tryGetUser();
+        return emit(user != null
+            ? AuthenticationState.authenticated(user)
+            : const AuthenticationState.unauthenticated());
       case AuthenticationStatus.unknown:
         return emit(const AuthenticationState.unknown());
     }
@@ -52,18 +54,18 @@ class AuthenticationBloc
       AuthenticationLogoutRequest event, Emitter<AuthenticationState> emit) {
     // _authenticationRepository.logOut();
     // clear data persists
-    HydratedBloc.storage.clear();
+    // HydratedBloc.storage.clear();
     return emit(const AuthenticationState.unauthenticated());
   }
 
-  // Future<User?> _tryGetUser() async {
-  //   try {
-  //     final user = await _userRepository.getUser();
-  //     return user;
-  //   } catch (_) {
-  //     return null;
-  //   }
-  // }
+  Future<User?> _tryGetUser() async {
+    try {
+      final user = await _userRepository.getUser();
+      return user;
+    } catch (_) {
+      return null;
+    }
+  }
 
   @override
   AuthenticationState fromJson(Map<String, dynamic> json) {
