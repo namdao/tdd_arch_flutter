@@ -3,56 +3,62 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:tdd_architecture_course/config/routes/app_routes.gr.dart';
+import 'package:tdd_architecture_course/config/routes/auth_guard.dart';
+import 'package:tdd_architecture_course/features/authentication/presentation/bloc/authentication_bloc.dart';
 import 'package:tdd_architecture_course/features/todo/presentation/bloc/todo_bloc.dart';
 
 // part 'app_routes.gr.dart';
 @AutoRouterConfig(replaceInRouteName: 'Page,Route')
 class AppRoute extends $AppRoute {
+  AuthenticationBloc authenticationBloc;
+  AppRoute({required this.authenticationBloc});
+
   @override
   List<AutoRoute> get routes {
     return [
-      CustomRoute(
-        path: '/',
-        page: SplashScreen.page,
-      ),
-      AutoRoute(path: '/home', page: HomeScreen.page, children: [
-        AutoRoute(
-          path: 'bottomTabs',
-          page: BottomTabRoute.page,
+      AutoRoute(
+          path: '/',
+          guards: [AuthGuardApp(authenticationBloc)],
+          page: HomeScreen.page,
           children: [
             AutoRoute(
-              initial: true,
-              path: 'settings',
-              page: SettingPage.page,
+              path: 'bottomTabs',
+              page: BottomTabRoute.page,
+              children: [
+                AutoRoute(
+                  initial: true,
+                  path: 'settings',
+                  page: SettingPage.page,
+                ),
+              ],
             ),
-          ],
-        ),
-        AutoRoute(
-          initial: true,
-          page: BlocPraticeRoute.page,
-          path: 'bloc',
-          children: [
-            AutoRoute(page: BlocPraticePage.page, path: '', initial: true),
-            AutoRoute(page: CounterPage.page, path: 'counter'),
-            AutoRoute(page: TimerPage.page, path: 'timer'),
-            AutoRoute(page: PostPage.page, path: 'postsList'),
-          ],
-        ),
-      ]),
-      AutoRoute(page: TodoBlocRoute.page, path: '/todoBloc', children: [
-        AutoRoute(
-          initial: true,
-          page: TodoPages.page,
-          path: '',
-        ),
-        AutoRoute(
-          page: TodoAddPages.page,
-          path: 'todoAdd',
-        ),
-      ]),
+            AutoRoute(
+              page: BlocPraticeRoute.page,
+              path: 'bloc',
+              children: [
+                AutoRoute(page: BlocPraticePage.page, path: '', initial: true),
+                AutoRoute(page: CounterPage.page, path: 'counter'),
+                AutoRoute(page: TimerPage.page, path: 'timer'),
+                AutoRoute(page: PostPage.page, path: 'postsList'),
+              ],
+            ),
+            AutoRoute(page: TodoBlocRoute.page, path: 'todoBloc', children: [
+              AutoRoute(
+                initial: true,
+                page: TodoPages.page,
+                path: '',
+              ),
+              AutoRoute(
+                page: TodoAddPages.page,
+                path: 'todoAdd',
+              ),
+            ]),
+          ]),
+
       // Stack Authenticate (public page)
       CustomRoute(
         page: Authenticate.page,
+        guards: [PublicGuardApp(authenticationBloc)],
         path: '/auth',
         keepHistory: false,
         children: [

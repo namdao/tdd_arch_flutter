@@ -76,7 +76,7 @@ class AuthenticationBloc
       User user = User(id);
       return AuthenticationState.authenticated(user);
     }
-    return const AuthenticationState.unknown();
+    return const AuthenticationState.unauthenticated();
   }
 
   @override

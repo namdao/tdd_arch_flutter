@@ -1,11 +1,10 @@
-import 'package:authentication_repository/authentication_repository.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tdd_architecture_course/config/routes/app_routes.gr.dart';
+import 'package:provider/provider.dart';
+import 'package:tdd_architecture_course/config/routes/app_routes.dart';
 import 'package:tdd_architecture_course/features/authentication/presentation/bloc/authentication_bloc.dart';
 
-@RoutePage(name: 'SplashScreen')
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
 
@@ -35,7 +34,8 @@ class _LogoAppState extends State<SplashPage>
     with SingleTickerProviderStateMixin {
   late Animation<double> animation;
   late AnimationController controller;
-
+  bool hasDoneAnimate = false;
+  late final AppRoute _appRouter;
   @override
   void initState() {
     super.initState();
@@ -44,16 +44,11 @@ class _LogoAppState extends State<SplashPage>
     animation = Tween<double>(begin: 200, end: 300).animate(controller)
       ..addStatusListener((status) {
         if (status == AnimationStatus.completed) {
-          final state = BlocProvider.of<AuthenticationBloc>(context).state;
-          switch (state.status) {
-            case AuthenticationStatus.unauthenticated:
-            case AuthenticationStatus.unknown:
-              AutoRouter.of(context).pushAndPopUntil(const Authenticate(),
-                  predicate: (_) => true);
-            case AuthenticationStatus.authenticated:
-              AutoRouter.of(context)
-                  .pushAndPopUntil(const HomeScreen(), predicate: (_) => true);
-          }
+          _appRouter =
+              AppRoute(authenticationBloc: Provider.of(context, listen: false));
+          setState(() {
+            hasDoneAnimate = true;
+          });
         }
       });
     controller.forward();
@@ -67,22 +62,23 @@ class _LogoAppState extends State<SplashPage>
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AuthenticationBloc, AuthenticationState>(
-      listener: (context, state) {
-        switch (state.status) {
-          case AuthenticationStatus.unauthenticated:
-          case AuthenticationStatus.unknown:
-            AutoRouter.of(context)
-                .pushAndPopUntil(const Authenticate(), predicate: (_) => true);
-          case AuthenticationStatus.authenticated:
-            AutoRouter.of(context)
-                .pushAndPopUntil(const HomeScreen(), predicate: (_) => true);
-        }
-      },
-      child: Container(
-        color: Colors.white,
-        child: AnimatedLogo(animation: animation),
-      ),
-    );
+    return BlocBuilder<AuthenticationBloc, AuthenticationState>(
+        builder: (context, state) {
+      if (!hasDoneAnimate) {
+        return Container(
+          color: Colors.white,
+          child: AnimatedLogo(animation: animation),
+        );
+      }
+
+      return MaterialApp.router(
+        title: 'Clean Architect Flutter',
+        routerConfig: _appRouter.config(
+          reevaluateListenable: ReevaluateListenable.stream(
+              context.read<AuthenticationBloc>().stream),
+        ),
+        debugShowCheckedModeBanner: false,
+      );
+    });
   }
 }
