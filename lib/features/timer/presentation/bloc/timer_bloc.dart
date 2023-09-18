@@ -67,13 +67,11 @@ class TimerBloc extends HydratedBloc<TimerEvent, TimerState> {
   @override
   TimerState fromJson(Map<String, dynamic> json) {
     final getDataPersist = json['timestate'];
-    print('fromTimerState:   ${json}');
     return getDataPersist as TimerState;
   }
 
   @override
   Map<String, dynamic> toJson(TimerState state) {
-    print('toTimestate: ${state}');
     final setDataPersist = state.toJson();
     return {
       'timestate': setDataPersist,

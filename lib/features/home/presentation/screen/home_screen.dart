@@ -21,6 +21,7 @@ class HomeScreen extends StatelessWidget {
       builder: (context, child) {
         // obtain the scoped TabsRouter controller using context
         final tabsRouter = AutoTabsRouter.of(context);
+        final isHideBottomTab = context.router.currentPath == '/bloc/counter';
         // Here we're building our Scaffold inside of AutoTabsRouter
         // to access the tabsRouter controller provided in this context
         //
@@ -29,6 +30,9 @@ class HomeScreen extends StatelessWidget {
             body: child,
             bottomNavigationBar: BottomNavigationBar(
               currentIndex: tabsRouter.activeIndex,
+              type: isHideBottomTab
+                  ? BottomNavigationBarType.shifting
+                  : BottomNavigationBarType.fixed,
               onTap: (index) {
                 // here we switch between tabs
                 tabsRouter.setActiveIndex(index);

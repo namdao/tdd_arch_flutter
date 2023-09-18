@@ -26,12 +26,12 @@ class AuthenticationBloc
   // final AuthenticationRepository _authenticationRepository;
   final UserRepository _userRepository = UserRepository();
 
-  late StreamSubscription<AuthenticationStatus>
-      _authenticationStatusSubscription;
+  // late StreamSubscription<AuthenticationStatus>
+  //     _authenticationStatusSubscription;
 
   @override
   Future<void> close() {
-    _authenticationStatusSubscription.cancel();
+    // _authenticationStatusSubscription.cancel();
     return super.close();
   }
 

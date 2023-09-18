@@ -36,25 +36,28 @@ class AppRoute extends $AppRoute {
               page: BlocPraticeRoute.page,
               path: 'bloc',
               children: [
-                AutoRoute(page: BlocPraticePage.page, path: '', initial: true),
+                AutoRoute(page: BlocPraticePage.page, path: ''),
                 AutoRoute(page: CounterPage.page, path: 'counter'),
                 AutoRoute(page: TimerPage.page, path: 'timer'),
                 AutoRoute(page: PostPage.page, path: 'postsList'),
               ],
             ),
-            AutoRoute(page: TodoBlocRoute.page, path: 'todoBloc', children: [
-              AutoRoute(
-                initial: true,
-                page: TodoPages.page,
-                path: '',
-              ),
-              AutoRoute(
-                page: TodoAddPages.page,
-                path: 'todoAdd',
-              ),
-            ]),
           ]),
-
+      AutoRoute(
+          guards: [AuthGuardApp(authenticationBloc)],
+          page: TodoBlocRoute.page,
+          path: '/todoBloc',
+          children: [
+            AutoRoute(
+              initial: true,
+              page: TodoPages.page,
+              path: '',
+            ),
+            AutoRoute(
+              page: TodoAddPages.page,
+              path: 'todoAdd',
+            ),
+          ]),
       // Stack Authenticate (public page)
       CustomRoute(
         page: Authenticate.page,
@@ -98,3 +101,21 @@ class TodoBlocPage extends StatelessWidget {
         child: const AutoRouter(),
       );
 }
+
+
+// class TodoBlocPage extends StatelessWidget {
+//   const TodoBlocPage(
+//       {super.key, required AuthenticationBloc authenticationBloc})
+//       : _authenticationBloc = authenticationBloc;
+//   final AuthenticationBloc _authenticationBloc;
+//   @override
+//   Widget build(BuildContext context) => MultiBlocProvider(
+//         providers: [
+//           BlocProvider<TodoBloc>(
+//               create: (_) => TodoBloc(authenticationBloc: _authenticationBloc)),
+//           BlocProvider.value(
+//               value: BlocProvider.of<AuthenticationBloc>(context)),
+//         ],
+//         child: const AutoRouter(),
+//       );
+// }
