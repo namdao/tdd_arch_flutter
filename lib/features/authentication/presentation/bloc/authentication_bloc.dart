@@ -3,12 +3,21 @@ import 'dart:async';
 import 'package:authentication_repository/authentication_repository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:tdd_architecture_course/core/dio/http_app.dart';
+import 'package:tdd_architecture_course/core/failure.dart';
+import 'package:tdd_architecture_course/core/service_locator.dart';
+import 'package:tdd_architecture_course/features/authentication/data/model/request/verify_otp_request.dart';
+import 'package:tdd_architecture_course/features/authentication/domain/entity/user_entity.dart';
+import 'package:tdd_architecture_course/features/authentication/domain/usecases/authentication_usecase.dart';
+import 'package:tdd_architecture_course/features/authentication/presentation/bloc/authentication_state.dart';
 import 'package:tdd_architecture_course/features/todo/presentation/bloc/todo_bloc.dart';
 import 'package:user_repository/user_repository.dart';
 
 part 'authentication_event.dart';
-part 'authentication_state.dart';
+// part 'authentication_state.dart';
 
 class AuthenticationBloc
     extends HydratedBloc<AuthenticationEvent, AuthenticationState> {
@@ -18,9 +27,10 @@ class AuthenticationBloc
   //   on<AuthenticationStatusChanged>(_onAuthenticationStatusChanged);
   //   on<AuthenticationLogoutRequest>(_onAuthenticationLogoutRequest);
   // }
-  AuthenticationBloc() : super(const AuthenticationState.unknown()) {
-    on<AuthenticationStatusChanged>(_onAuthenticationStatusChanged);
+  AuthenticationBloc() : super(AuthenticationState.unknown()) {
+    // on<AuthenticationStatusChanged>(_onAuthenticationStatusChanged);
     on<AuthenticationLogoutRequest>(_onAuthenticationLogoutRequest);
+    on<AuthenticationVerifyOtp>(_onAuthenticateVerifyOtp);
   }
 
   // final AuthenticationRepository _authenticationRepository;
@@ -35,27 +45,39 @@ class AuthenticationBloc
     return super.close();
   }
 
-  Future<void> _onAuthenticationStatusChanged(AuthenticationStatusChanged event,
-      Emitter<AuthenticationState> emit) async {
-    switch (event.status) {
-      case AuthenticationStatus.unauthenticated:
-        return emit(const AuthenticationState.unauthenticated());
-      case AuthenticationStatus.authenticated:
-        final user = await _tryGetUser();
-        return emit(user != null
-            ? AuthenticationState.authenticated(user)
-            : const AuthenticationState.unauthenticated());
-      case AuthenticationStatus.unknown:
-        return emit(const AuthenticationState.unknown());
-    }
+  Future<void> _onAuthenticateVerifyOtp(
+      AuthenticationVerifyOtp event, Emitter<AuthenticationState> emit) async {
+    final result = await serviceLocator<AuthenticationUseCase>()
+        .verifyOtp(verifyOtpRequest: event.verifyOtpRequest);
+    result.fold((l) {
+      return emit(AuthenticationState.errorAuthen(l.message));
+    }, (r) {
+      return emit(AuthenticationState.authenticated(r.userEntity));
+    });
   }
+
+  // Future<void> _onAuthenticationStatusChanged(AuthenticationStatusChanged event,
+  //     Emitter<AuthenticationState> emit) async {
+  //   switch (event.status) {
+  //     case AuthenticationStatus.unauthenticated:
+  //       return emit(AuthenticationState.unauthenticated());
+  //     case AuthenticationStatus.authenticated:
+  //       final user = UserEntity(userId: '111111');
+  //       return emit(user != null
+  //           ? AuthenticationState.authenticated(user)
+  //           : AuthenticationState.unauthenticated());
+  //     case AuthenticationStatus.unknown:
+  //       return emit(AuthenticationState.unknown());
+  //   }
+  // }
 
   void _onAuthenticationLogoutRequest(
       AuthenticationLogoutRequest event, Emitter<AuthenticationState> emit) {
     // _authenticationRepository.logOut();
     // clear data persists
     // HydratedBloc.storage.clear();
-    return emit(const AuthenticationState.unauthenticated());
+    HttpApp().updateTokenAuthorization('');
+    return emit(AuthenticationState.unauthenticated());
   }
 
   Future<User?> _tryGetUser() async {
@@ -70,13 +92,12 @@ class AuthenticationBloc
   @override
   AuthenticationState fromJson(Map<String, dynamic> json) {
     final getDataPersist = json['authen'];
-    if (getDataPersist != null &&
-        getDataPersist['status'] == 'AuthenticationStatus.authenticated') {
-      final id = getDataPersist['user']['id'];
-      User user = User(id);
+    if (getDataPersist != null && getDataPersist['status'] == 'authenticated') {
+      final id = getDataPersist['user']['userId'];
+      final user = UserEntity(userId: id);
       return AuthenticationState.authenticated(user);
     }
-    return const AuthenticationState.unauthenticated();
+    return AuthenticationState.unauthenticated();
   }
 
   @override

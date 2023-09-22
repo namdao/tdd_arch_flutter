@@ -6,23 +6,23 @@ part of 'session_entity.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_SessionEntity _$$_SessionEntityFromJson(Map<String, dynamic> json) =>
-    _$_SessionEntity(
-      sessionId: json['sessionId'] as String? ?? '',
-      mobile: json['mobile'] as String? ?? '',
-      deviceId: json['deviceId'] as String? ?? '',
+SessionEntity _$SessionEntityFromJson(Map<String, dynamic> json) =>
+    SessionEntity(
+      sessionId: json['sessionId'] as String,
+      mobile: json['mobile'] as String,
+      deviceId: json['deviceId'] as String,
       errorCode: json['errorCode'] as int?,
       typeFraud: $enumDecodeNullable(_$TypeFraudEnumMap, json['typeFraud']) ??
           TypeFraud.unknow,
     );
 
-Map<String, dynamic> _$$_SessionEntityToJson(_$_SessionEntity instance) =>
+Map<String, dynamic> _$SessionEntityToJson(SessionEntity instance) =>
     <String, dynamic>{
       'sessionId': instance.sessionId,
       'mobile': instance.mobile,
       'deviceId': instance.deviceId,
       'errorCode': instance.errorCode,
-      'typeFraud': _$TypeFraudEnumMap[instance.typeFraud]!,
+      'typeFraud': _$TypeFraudEnumMap[instance.typeFraud],
     };
 
 const _$TypeFraudEnumMap = {

@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:tdd_architecture_course/config/routes/app_routes.dart';
 import 'package:tdd_architecture_course/features/authentication/presentation/bloc/authentication_bloc.dart';
+import 'package:tdd_architecture_course/features/authentication/presentation/bloc/authentication_state.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});

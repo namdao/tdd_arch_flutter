@@ -1,16 +1,20 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'status_remote_model.freezed.dart';
 part 'status_remote_model.g.dart';
 
-@freezed
-class StatusRemoteModel with _$StatusRemoteModel {
-  factory StatusRemoteModel({
-    @Default('') String message,
-    @Default(0) int code,
-    @Default(true) bool success,
-  }) = _StatusRemoteModel;
+@JsonSerializable()
+class StatusRemoteModel {
+  StatusRemoteModel({
+    required this.message,
+    required this.code,
+    required this.success,
+  });
+  String message;
+  int code;
+  bool success;
 
   factory StatusRemoteModel.fromJson(Map<String, Object?> json) =>
       _$StatusRemoteModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$StatusRemoteModelToJson(this);
 }

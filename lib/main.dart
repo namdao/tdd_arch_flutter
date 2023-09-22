@@ -33,11 +33,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<AuthenticationBloc>(
-        create: (_) => AuthenticationBloc(),
-        child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
-            builder: (context, state) {
-          return const SplashPage();
-        }));
+        create: (_) => AuthenticationBloc(), child: const SplashPage());
     // return BlocProvider<AuthenticationBloc>(
     //     create: (_) => AuthenticationBloc(),
     //     child: BlocBuilder<AuthenticationBloc, AuthenticationState>(

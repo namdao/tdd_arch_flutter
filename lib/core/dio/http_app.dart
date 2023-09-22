@@ -27,6 +27,7 @@ class HttpApp {
         headers: {
           'Accept': 'application/json',
         });
+    // ignore: avoid_single_cascade_in_expression_statements
     _dio
       ..interceptors.add(InterceptorsWrapper(onRequest: (options, handler) {
         return handler.next(options);
@@ -47,14 +48,14 @@ class HttpApp {
         return handler.resolve(response);
       }, onError: (e, handler) {
         return handler.next(e);
-      }))
-      ..interceptors.add(
-        LogInterceptor(
-          requestBody: kDebugMode ? true : false,
-          responseBody: kDebugMode ? true : false,
-          requestHeader: kDebugMode ? true : false,
-        ),
-      );
+      }));
+    // ..interceptors.add(
+    //   LogInterceptor(
+    //     requestBody: kDebugMode ? true : false,
+    //     responseBody: kDebugMode ? true : false,
+    //     requestHeader: kDebugMode ? true : false,
+    //   ),
+    // );
   }
 
   Future<Response> get(String path) async {

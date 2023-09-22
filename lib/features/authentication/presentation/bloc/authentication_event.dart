@@ -10,3 +10,8 @@ final class AuthenticationStatusChanged extends AuthenticationEvent {
 }
 
 final class AuthenticationLogoutRequest extends AuthenticationEvent {}
+
+final class AuthenticationVerifyOtp extends AuthenticationEvent {
+  const AuthenticationVerifyOtp(this.verifyOtpRequest);
+  final VerifyOtpRequest verifyOtpRequest;
+}

@@ -6,14 +6,13 @@ part of 'generate_otp_response.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_GenerateOtpResponse _$$_GenerateOtpResponseFromJson(
-        Map<String, dynamic> json) =>
-    _$_GenerateOtpResponse(
-      sessionId: json['sessionId'] as String? ?? '',
+GenerateOtpResponse _$GenerateOtpResponseFromJson(Map<String, dynamic> json) =>
+    GenerateOtpResponse(
+      sessionId: json['sessionId'] as String,
     );
 
-Map<String, dynamic> _$$_GenerateOtpResponseToJson(
-        _$_GenerateOtpResponse instance) =>
+Map<String, dynamic> _$GenerateOtpResponseToJson(
+        GenerateOtpResponse instance) =>
     <String, dynamic>{
       'sessionId': instance.sessionId,
     };

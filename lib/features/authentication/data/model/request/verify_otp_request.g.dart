@@ -1,21 +1,25 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'generate_otp_request.dart';
+part of 'verify_otp_request.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-GenerateOtpRequest _$GenerateOtpRequestFromJson(Map<String, dynamic> json) =>
-    GenerateOtpRequest(
+VerifyOtpRequest _$VerifyOtpRequestFromJson(Map<String, dynamic> json) =>
+    VerifyOtpRequest(
       mobile: json['mobile'] as String,
       deviceId: json['deviceId'] as String,
-      action: json['action'] as String? ?? 'GENERATE_OTP',
+      sessionId: json['sessionId'] as String,
+      otp: json['otp'] as String,
+      action: json['action'] as String? ?? 'VERIFY_OTP',
     );
 
-Map<String, dynamic> _$GenerateOtpRequestToJson(GenerateOtpRequest instance) =>
+Map<String, dynamic> _$VerifyOtpRequestToJson(VerifyOtpRequest instance) =>
     <String, dynamic>{
       'mobile': instance.mobile,
       'deviceId': instance.deviceId,
+      'sessionId': instance.sessionId,
+      'otp': instance.otp,
       'action': instance.action,
     };

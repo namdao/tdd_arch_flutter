@@ -1,28 +1,39 @@
-part of 'authentication_bloc.dart';
+import 'package:authentication_repository/authentication_repository.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:tdd_architecture_course/features/authentication/domain/entity/user_entity.dart';
 
-class AuthenticationState extends Equatable {
-  const AuthenticationState._({
-    this.status = AuthenticationStatus.unknown,
-    this.user = User.empty,
-  });
+// part of 'authentication_bloc.dart';
+part 'authentication_state.freezed.dart';
+part 'authentication_state.g.dart';
 
-  const AuthenticationState.unknown() : this._();
+@freezed
+class AuthenticationState with _$AuthenticationState {
+  factory AuthenticationState(
+      {required AuthenticationStatus status,
+      String? errorMessage,
+      UserEntity? user}) = _AuthenticationState;
 
-  const AuthenticationState.authenticated(User user)
-      : this._(status: AuthenticationStatus.authenticated, user: user);
+  factory AuthenticationState.fromJson(Map<String, Object?> json) =>
+      _$AuthenticationStateFromJson(json);
 
-  const AuthenticationState.unauthenticated()
-      : this._(status: AuthenticationStatus.unauthenticated);
+  factory AuthenticationState.unknown() =>
+      AuthenticationState(status: AuthenticationStatus.unknown);
 
-  final AuthenticationStatus status;
-  final User user;
+  factory AuthenticationState.authenticated(UserEntity user) =>
+      AuthenticationState(
+          status: AuthenticationStatus.authenticated, user: user);
 
-  @override
-  List<Object> get props => [status, user];
-  Map<String, dynamic> toJson() => {
-        'status': status.toString(),
-        'user': {'id': user.id.toString()}
-      };
+  factory AuthenticationState.unauthenticated() =>
+      AuthenticationState(status: AuthenticationStatus.unauthenticated);
+  factory AuthenticationState.errorAuthen(String errorMessage) =>
+      AuthenticationState(
+          status: AuthenticationStatus.unauthenticated,
+          errorMessage: errorMessage);
+  // final AuthenticationStatus status;
+  // final UserEntity user = UserEntity(userId: '', fristName: '');
+
+  // @override
+  // List<Object> get props => [status, user];
 }
 
 // final class Authenticated extends AuthenticationState {

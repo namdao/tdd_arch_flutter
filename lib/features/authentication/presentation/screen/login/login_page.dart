@@ -44,20 +44,26 @@ class _LoginState extends State<LoginPages> {
     });
   }
 
+  @override
+  void initState() {
+    super.initState();
+  }
+
   void submitPhoneNumber() async {
-    BlocProvider.of<AuthenticationBloc>(context).add(
-        const AuthenticationStatusChanged(AuthenticationStatus.authenticated));
-    // final result =
-    //     await serviceLocator<AuthenticationUseCase>().requestOtp(phoneNumber);
-    // result.fold((failure) {
-    //   print('failure: ${failure}');
-    //   setState(() {
-    //     errorInput = failure.message;
-    //   });
-    // }, (data) {
-    //   print('success: ${data}');
-    //   print(data.sessionId);
-    // });
+    // BlocProvider.of<AuthenticationBloc>(context).add(
+    //     const AuthenticationStatusChanged(AuthenticationStatus.authenticated));
+    final result =
+        await serviceLocator<AuthenticationUseCase>().requestOtp(phoneNumber);
+    result.fold((failure) {
+      setState(() {
+        errorInput = failure.message;
+      });
+    }, (data) {
+      context.router.navigate(OtpScreens(
+          deviceId: data.deviceId,
+          sessionId: data.sessionId,
+          mobile: data.mobile));
+    });
   }
 
   Widget title() => const Text(
