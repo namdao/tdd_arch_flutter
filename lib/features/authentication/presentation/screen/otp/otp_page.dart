@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -147,59 +145,53 @@ class _StateOtp extends State<OtpForm> {
   }
 
   List<Widget> lsInputField() {
-    final sizeWith =
-        (MediaQuery.of(context).size.width - 32) / (widget.pintCount);
-
     final listInput = List.generate(
-        widget.pintCount,
-        (index) => SizedBox(
-              width: sizeWith,
-              height: sizeWith - 8,
-              child: Padding(
-                padding: const EdgeInsets.only(right: 8),
-                child: TextFormField(
-                  autofillHints: const [AutofillHints.oneTimeCode],
-                  controller: listController[index],
-                  focusNode: listFocus[index],
-                  textAlign: TextAlign.center,
-                  onTap: () {
-                    listController[index].selection = TextSelection(
-                        baseOffset: 0,
-                        extentOffset: listController[index].text.length);
-                  },
-                  // onChanged: (value) {
-                  //   if (value.length == 1) {
-                  //     nextFocus(index);
-                  //     if (index == widget.pintCount - 1) {
-                  //       onConfirmOtp();
-                  //     }
-                  //   } else if (value.isEmpty) {
-                  //     previousFocus(index);
-                  //   }
-                  // },
-                  keyboardType: TextInputType.number,
-                  inputFormatters: [
-                    LengthLimitingTextInputFormatter(1),
-                    FilteringTextInputFormatter.digitsOnly
-                  ],
-                  decoration: const InputDecoration(
-                    filled: true,
-                    fillColor: Colors.white,
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black),
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          width: 1,
-                          color: Colors.grey,
-                          style: BorderStyle.solid,
-                        ),
-                        borderRadius: BorderRadius.all(Radius.circular(8))),
-                  ),
+      widget.pintCount,
+      (index) => SizedBox(
+        width: 53,
+        height: 53,
+        child: TextFormField(
+          autofillHints: const [AutofillHints.oneTimeCode],
+          controller: listController[index],
+          focusNode: listFocus[index],
+          textAlign: TextAlign.center,
+          onTap: () {
+            listController[index].selection = TextSelection(
+                baseOffset: 0, extentOffset: listController[index].text.length);
+          },
+          // onChanged: (value) {
+          //   if (value.length == 1) {
+          //     nextFocus(index);
+          //     if (index == widget.pintCount - 1) {
+          //       onConfirmOtp();
+          //     }
+          //   } else if (value.isEmpty) {
+          //     previousFocus(index);
+          //   }
+          // },
+          keyboardType: TextInputType.number,
+          inputFormatters: [
+            LengthLimitingTextInputFormatter(1),
+            FilteringTextInputFormatter.digitsOnly
+          ],
+          decoration: const InputDecoration(
+            filled: true,
+            fillColor: Colors.white,
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.black),
+              borderRadius: BorderRadius.all(Radius.circular(8)),
+            ),
+            enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  width: 1,
+                  color: Colors.grey,
+                  style: BorderStyle.solid,
                 ),
-              ),
-            ));
+                borderRadius: BorderRadius.all(Radius.circular(8))),
+          ),
+        ),
+      ),
+    );
     return listInput;
   }
 
@@ -210,24 +202,18 @@ class _StateOtp extends State<OtpForm> {
 
   @override
   Widget build(BuildContext context) {
-    // return Row(
-    //   mainAxisAlignment: MainAxisAlignment.center,
-    //   children: lsInputField(),
-    // );
     return Column(
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: lsInputField(),
-        ),
-        SizedBox(
-          width: 12,
-          height: 12,
-        ),
-        // Row(
-        //   mainAxisAlignment: MainAxisAlignment.center,
-        //   children: lsInputPlain(),
-        // ),
+        Container(
+          alignment: Alignment.center,
+          child: Wrap(
+            alignment: WrapAlignment.center,
+            spacing: 8,
+            direction: Axis.horizontal,
+            runSpacing: 12,
+            children: lsInputField(),
+          ),
+        )
       ],
     );
   }

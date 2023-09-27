@@ -12,7 +12,7 @@ class HomeScreen extends StatelessWidget {
       // list of your tab routes
       // routes used here must be declared as children
       // routes of /dashboard
-      routes: const [BlocPraticePage(), BottomTabRoute()],
+      routes: const [BlocPraticePage(), SettingPage()],
       transitionBuilder: (context, child, animation) => FadeTransition(
         opacity: animation,
         // the passed child is technically our animated selected-tab page
@@ -39,7 +39,9 @@ class HomeScreen extends StatelessWidget {
               },
               items: const [
                 BottomNavigationBarItem(
-                    label: 'Pratice', icon: Icon(Icons.note)),
+                    label: 'Pratice',
+                    icon: Icon(Icons.note),
+                    backgroundColor: Colors.yellow),
                 BottomNavigationBarItem(
                     label: 'Settings', icon: Icon(Icons.settings)),
               ],

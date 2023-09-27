@@ -47,9 +47,10 @@ class _LoginState extends State<LoginPages> {
   @override
   void initState() {
     super.initState();
+    // submitPhoneNumber('0987654321');
   }
 
-  void submitPhoneNumber() async {
+  void submitPhoneNumber([String fakeNumber = '']) async {
     // BlocProvider.of<AuthenticationBloc>(context).add(
     //     const AuthenticationStatusChanged(AuthenticationStatus.authenticated));
     final result =

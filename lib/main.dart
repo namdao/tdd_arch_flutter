@@ -8,6 +8,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:tdd_architecture_course/core/dio/http_app.dart';
 import 'package:tdd_architecture_course/core/service_locator.dart';
 import 'package:tdd_architecture_course/features/authentication/presentation/bloc/authentication_bloc.dart';
+import 'package:tdd_architecture_course/features/authentication/presentation/bloc/authentication_state.dart';
 import 'package:tdd_architecture_course/features/splash/presentation/screen/splash_page.dart';
 // import 'package:tdd_architecture_course/features/authentication/presentation/bloc/authentication_bloc.dart';
 // import 'package:user_repository/user_repository.dart';
@@ -32,12 +33,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<AuthenticationBloc>(
-        create: (_) => AuthenticationBloc(), child: const SplashPage());
     // return BlocProvider<AuthenticationBloc>(
-    //     create: (_) => AuthenticationBloc(),
-    //     child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
-    //         builder: (context, state) => const SplashPage()));
+    //     create: (_) => AuthenticationBloc(), child: const SplashPage());
+    return BlocProvider<AuthenticationBloc>(
+        create: (_) => AuthenticationBloc(),
+        child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+            builder: (context, state) => const SplashPage()));
     // final AuthenticationRepository _authenticationRepository =
     //     AuthenticationRepository();
     // return MultiRepositoryProvider(

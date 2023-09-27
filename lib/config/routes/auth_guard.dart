@@ -1,7 +1,7 @@
 import 'package:authentication_repository/authentication_repository.dart';
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+// import 'package:flutter/material.dart';
+// import 'package:provider/provider.dart';
 import 'package:tdd_architecture_course/config/routes/app_routes.gr.dart';
 import 'package:tdd_architecture_course/features/authentication/presentation/bloc/authentication_bloc.dart';
 
@@ -33,17 +33,17 @@ class PublicGuardApp extends AutoRouteGuard {
   }
 }
 
-class AuthProviderApp extends ChangeNotifier {
-  bool _isAuthenticated = false;
-  bool get isAuthenticated => _isAuthenticated;
+// class AuthProviderApp extends ChangeNotifier {
+//   bool _isAuthenticated = false;
+//   bool get isAuthenticated => _isAuthenticated;
 
-  void login() {
-    _isAuthenticated = true;
-    notifyListeners();
-  }
+//   void login() {
+//     _isAuthenticated = true;
+//     notifyListeners();
+//   }
 
-  void logout() {
-    _isAuthenticated = false;
-    notifyListeners();
-  }
-}
+//   void logout() {
+//     _isAuthenticated = false;
+//     notifyListeners();
+//   }
+// }

@@ -21,17 +21,6 @@ class AppRoute extends $AppRoute {
           page: HomeScreen.page,
           children: [
             AutoRoute(
-              path: 'bottomTabs',
-              page: BottomTabRoute.page,
-              children: [
-                AutoRoute(
-                  initial: true,
-                  path: 'settings',
-                  page: SettingPage.page,
-                ),
-              ],
-            ),
-            AutoRoute(
               page: BlocPraticeRoute.page,
               path: 'bloc',
               children: [
@@ -39,9 +28,19 @@ class AppRoute extends $AppRoute {
                 AutoRoute(page: CounterPage.page, path: 'counter'),
                 AutoRoute(page: TimerPage.page, path: 'timer'),
                 AutoRoute(page: PostPage.page, path: 'postsList'),
+                AutoRoute(
+                    page: AnimatedOpacityScreen.page, path: 'opacityAnimated'),
               ],
             ),
+            AutoRoute(
+              path: 'settings',
+              page: SettingPage.page,
+            ),
           ]),
+      AutoRoute(page: PraticeWidget.page, path: '/pratice-widget', children: [
+        AutoRoute(
+            initial: true, page: BottomTabbarScreen.page, path: 'bottom-tab'),
+      ]),
       AutoRoute(
           guards: [AuthGuardApp(authenticationBloc)],
           page: TodoBlocRoute.page,
@@ -75,9 +74,9 @@ class AppRoute extends $AppRoute {
   }
 }
 
-@RoutePage(name: 'BottomTabRoute')
-class BottomTabPage extends AutoRouter {
-  const BottomTabPage({super.key});
+@RoutePage(name: 'PraticeWidget')
+class PraticeWidgetPage extends AutoRouter {
+  const PraticeWidgetPage({super.key});
 }
 
 @RoutePage(name: 'Authenticate')
@@ -101,21 +100,3 @@ class TodoBlocPage extends StatelessWidget {
         child: const AutoRouter(),
       );
 }
-
-
-// class TodoBlocPage extends StatelessWidget {
-//   const TodoBlocPage(
-//       {super.key, required AuthenticationBloc authenticationBloc})
-//       : _authenticationBloc = authenticationBloc;
-//   final AuthenticationBloc _authenticationBloc;
-//   @override
-//   Widget build(BuildContext context) => MultiBlocProvider(
-//         providers: [
-//           BlocProvider<TodoBloc>(
-//               create: (_) => TodoBloc(authenticationBloc: _authenticationBloc)),
-//           BlocProvider.value(
-//               value: BlocProvider.of<AuthenticationBloc>(context)),
-//         ],
-//         child: const AutoRouter(),
-//       );
-// }

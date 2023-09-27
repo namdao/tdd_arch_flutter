@@ -15,7 +15,9 @@ String getBaseUrl() {
 Future<String> getDeviceId() async {
   String deviceId = '';
   DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-  if (Platform.isAndroid) {
+  if (kIsWeb) {
+    deviceId = deviceInfo.webBrowserInfo.toString();
+  } else if (Platform.isAndroid) {
     AndroidDeviceInfo data = await deviceInfo.androidInfo;
     deviceId = data.id;
   } else if (Platform.isIOS) {
