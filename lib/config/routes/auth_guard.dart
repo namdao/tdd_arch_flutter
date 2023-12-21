@@ -13,7 +13,7 @@ class AuthGuardApp extends AutoRouteGuard {
     if (authService.state.status == AuthenticationStatus.authenticated) {
       return resolver.next(true);
     } else {
-      router.replaceAll([const Authenticate()]);
+      router.push(const Authenticate());
       return resolver.next(false);
     }
   }
@@ -24,10 +24,11 @@ class PublicGuardApp extends AutoRouteGuard {
   PublicGuardApp(this.authService);
   @override
   void onNavigation(NavigationResolver resolver, StackRouter router) {
-    if (authService.state.status == AuthenticationStatus.unauthenticated) {
+    if (authService.state.status == AuthenticationStatus.unauthenticated ||
+        authService.state.status == AuthenticationStatus.unknown) {
       return resolver.next(true);
     } else {
-      router.replaceAll([const HomeScreen()]);
+      router.push(const HomeScreen());
       return resolver.next(false);
     }
   }

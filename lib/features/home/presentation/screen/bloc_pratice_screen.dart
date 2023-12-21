@@ -49,9 +49,24 @@ class BlocPraticeScreen extends StatelessWidget {
               child: const Text('Opacity animated')),
           TextButton(
               onPressed: () {
-                context.router.navigateNamed('/pratice-widget');
+                context.router.navigateNamed('/pratice-widget/bottom-tab');
               },
-              child: const Text('Some bottom tab bar animated'))
+              child: const Text('Some bottom tab bar animated')),
+          TextButton(
+              onPressed: () {
+                context.router.navigateNamed('/pratice-widget/pageview');
+              },
+              child: const Text('PageView')),
+          TextButton(
+              onPressed: () {
+                context.router.navigateNamed('/pratice-widget/sliverListGrid');
+              },
+              child: const Text('sliverListGrid')),
+          TextButton(
+              onPressed: () {
+                context.router.navigateNamed('/pratice-widget/transform');
+              },
+              child: const Text('Transform'))
         ]),
       ),
     );

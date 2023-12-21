@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tdd_architecture_course/config/routes/app_routes.gr.dart';
 import 'package:tdd_architecture_course/core/service_locator.dart';
+import 'package:tdd_architecture_course/features/authentication/domain/entity/session_entity.dart';
 import 'package:tdd_architecture_course/features/authentication/domain/usecases/authentication_usecase.dart';
 import 'package:tdd_architecture_course/features/authentication/presentation/bloc/authentication_bloc.dart';
 // import 'package:tdd_architecture_course/features/authentication/presentation/bloc/authentication_bloc.dart';
@@ -24,6 +25,7 @@ class _LoginState extends State<LoginPages> {
   final FocusNode _focusNumber = FocusNode();
   String phoneNumber = '';
   String errorInput = '';
+  bool isLoading = false;
 
   void onHideKeyboard(PointerDownEvent event) {
     if (_focusNumber.hasFocus) {
@@ -53,17 +55,23 @@ class _LoginState extends State<LoginPages> {
   void submitPhoneNumber([String fakeNumber = '']) async {
     // BlocProvider.of<AuthenticationBloc>(context).add(
     //     const AuthenticationStatusChanged(AuthenticationStatus.authenticated));
+    setState(() {
+      isLoading = true;
+    });
     final result =
         await serviceLocator<AuthenticationUseCase>().requestOtp(phoneNumber);
+    String errorMess = '';
     result.fold((failure) {
-      setState(() {
-        errorInput = failure.message;
-      });
+      errorMess = failure.message;
     }, (data) {
       context.router.navigate(OtpScreens(
           deviceId: data.deviceId,
           sessionId: data.sessionId,
           mobile: data.mobile));
+    });
+    setState(() {
+      errorInput = errorMess;
+      isLoading = false;
     });
   }
 
@@ -135,8 +143,9 @@ class _LoginState extends State<LoginPages> {
               hintStyle: const TextStyle(color: Colors.grey)),
         ),
       );
+
   Widget submitButton() => ElevatedButton(
-        onPressed: phoneNumber.isEmpty ? null : submitPhoneNumber,
+        onPressed: phoneNumber.isEmpty || isLoading ? null : submitPhoneNumber,
         style: ElevatedButton.styleFrom(
             disabledBackgroundColor: Colors.grey.shade300,
             shape: const RoundedRectangleBorder(
@@ -144,8 +153,17 @@ class _LoginState extends State<LoginPages> {
             ),
             backgroundColor: Colors.pink.shade400,
             minimumSize: const Size(double.infinity, 44)),
-        child: const Text('Tiếp tục', style: TextStyle(color: Colors.white)),
+        child: isLoading
+            ? SizedBox(
+                width: 24,
+                height: 24,
+                child: CircularProgressIndicator(
+                  color: Colors.grey.shade500,
+                ),
+              )
+            : const Text('Tiếp tục', style: TextStyle(color: Colors.white)),
       );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
-import 'package:tdd_architecture_course/core/service_locator.dart';
 import 'package:tdd_architecture_course/features/authentication/data/model/request/verify_otp_request.dart';
-import 'package:tdd_architecture_course/features/authentication/domain/usecases/authentication_usecase.dart';
 import 'package:tdd_architecture_course/features/authentication/presentation/bloc/authentication_bloc.dart';
 import 'package:tdd_architecture_course/features/authentication/presentation/bloc/authentication_state.dart';
 
@@ -26,7 +24,6 @@ class OtpPage extends StatefulWidget {
 }
 
 class _OtpState extends State<OtpPage> {
-  String errorMessage = '';
   void otpChanged(String value) async {
     // final authenBloc =
     //     Provider.of<AuthenticationBloc>(context, listen: false);
@@ -38,6 +35,19 @@ class _OtpState extends State<OtpPage> {
         otp: value);
     Provider.of<AuthenticationBloc>(context, listen: false)
         .add(AuthenticationVerifyOtp(verifyOtpRequest));
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<AuthenticationBloc>(context, listen: false)
+        .add(const AuthenticationInit());
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
   }
 
   @override

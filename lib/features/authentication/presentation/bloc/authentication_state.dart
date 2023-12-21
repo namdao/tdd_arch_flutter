@@ -16,15 +16,15 @@ class AuthenticationState with _$AuthenticationState {
   factory AuthenticationState.fromJson(Map<String, Object?> json) =>
       _$AuthenticationStateFromJson(json);
 
-  factory AuthenticationState.unknown() =>
-      AuthenticationState(status: AuthenticationStatus.unknown);
+  factory AuthenticationState.unknown() => AuthenticationState(
+      status: AuthenticationStatus.unknown, errorMessage: '');
 
   factory AuthenticationState.authenticated(UserEntity user) =>
       AuthenticationState(
           status: AuthenticationStatus.authenticated, user: user);
 
-  factory AuthenticationState.unauthenticated() =>
-      AuthenticationState(status: AuthenticationStatus.unauthenticated);
+  factory AuthenticationState.unauthenticated() => AuthenticationState(
+      status: AuthenticationStatus.unauthenticated, errorMessage: '');
   factory AuthenticationState.errorAuthen(String errorMessage) =>
       AuthenticationState(
           status: AuthenticationStatus.unauthenticated,

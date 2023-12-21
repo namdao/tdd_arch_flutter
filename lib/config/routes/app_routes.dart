@@ -38,8 +38,10 @@ class AppRoute extends $AppRoute {
             ),
           ]),
       AutoRoute(page: PraticeWidget.page, path: '/pratice-widget', children: [
-        AutoRoute(
-            initial: true, page: BottomTabbarScreen.page, path: 'bottom-tab'),
+        AutoRoute(page: BottomTabbarScreen.page, path: 'bottom-tab'),
+        AutoRoute(page: PageViewScreen.page, path: 'pageview'),
+        AutoRoute(page: SliverListGridScreen.page, path: 'sliverListGrid'),
+        AutoRoute(page: TransformScreen.page, path: 'transform'),
       ]),
       AutoRoute(
           guards: [AuthGuardApp(authenticationBloc)],

@@ -29,6 +29,7 @@ class AuthenticationBloc
   // }
   AuthenticationBloc() : super(AuthenticationState.unknown()) {
     // on<AuthenticationStatusChanged>(_onAuthenticationStatusChanged);
+    on<AuthenticationInit>(_initAuthenVerifyOtp);
     on<AuthenticationLogoutRequest>(_onAuthenticationLogoutRequest);
     on<AuthenticationVerifyOtp>(_onAuthenticateVerifyOtp);
   }
@@ -43,6 +44,11 @@ class AuthenticationBloc
   Future<void> close() {
     // _authenticationStatusSubscription.cancel();
     return super.close();
+  }
+
+  void _initAuthenVerifyOtp(
+      AuthenticationInit event, Emitter<AuthenticationState> emit) {
+    return emit(AuthenticationState.unauthenticated());
   }
 
   Future<void> _onAuthenticateVerifyOtp(

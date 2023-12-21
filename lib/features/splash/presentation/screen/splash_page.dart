@@ -22,11 +22,12 @@ class AnimatedLogo extends AnimatedWidget {
     final animation = listenable as Animation<double>;
     return Center(
       child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 10),
-        height: animation.value,
-        width: animation.value,
-        child: const FlutterLogo(),
-      ),
+          margin: const EdgeInsets.symmetric(vertical: 10),
+          height: animation.value,
+          width: animation.value,
+          child: Image.asset('lib/assets/logoApp.png')
+          // const FlutterLogo(),
+          ),
     );
   }
 }
@@ -42,7 +43,7 @@ class _LogoAppState extends State<SplashPage>
     super.initState();
     controller =
         AnimationController(vsync: this, duration: const Duration(seconds: 1));
-    animation = Tween<double>(begin: 200, end: 300).animate(controller)
+    animation = Tween<double>(begin: 50, end: 200).animate(controller)
       ..addStatusListener((status) {
         if (status == AnimationStatus.completed) {
           _appRouter =
@@ -65,12 +66,25 @@ class _LogoAppState extends State<SplashPage>
   Widget build(BuildContext context) {
     return BlocBuilder<AuthenticationBloc, AuthenticationState>(
         builder: (context, state) {
-      if (!hasDoneAnimate) {
-        return Container(
-          color: Colors.white,
-          child: AnimatedLogo(animation: animation),
-        );
-      }
+      // if (!hasDoneAnimate) {
+      //   return Container(
+      //     color: const Color.fromRGBO(255, 214, 0, 1),
+      //     child: AnimatedLogo(animation: animation),
+      //   );
+      // }
+      return Container(
+        color: const Color.fromRGBO(255, 214, 0, 1),
+        child: !hasDoneAnimate
+            ? AnimatedLogo(animation: animation)
+            : MaterialApp.router(
+                title: 'Clean Architect Flutter',
+                routerConfig: _appRouter.config(
+                  reevaluateListenable: ReevaluateListenable.stream(
+                      context.read<AuthenticationBloc>().stream),
+                ),
+                debugShowCheckedModeBanner: false,
+              ),
+      );
 
       return MaterialApp.router(
         title: 'Clean Architect Flutter',
