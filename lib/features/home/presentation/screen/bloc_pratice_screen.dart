@@ -66,7 +66,13 @@ class BlocPraticeScreen extends StatelessWidget {
               onPressed: () {
                 context.router.navigateNamed('/pratice-widget/transform');
               },
-              child: const Text('Transform'))
+              child: const Text('Transform')),
+          TextButton(
+              onPressed: () {
+                context.router
+                    .navigateNamed('/pratice-widget/challenge/pageview');
+              },
+              child: const Text('Challenge animate pageview'))
         ]),
       ),
     );

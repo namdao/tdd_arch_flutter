@@ -42,6 +42,8 @@ class AppRoute extends $AppRoute {
         AutoRoute(page: PageViewScreen.page, path: 'pageview'),
         AutoRoute(page: SliverListGridScreen.page, path: 'sliverListGrid'),
         AutoRoute(page: TransformScreen.page, path: 'transform'),
+        AutoRoute(
+            page: ParallaxEffectPageScreen.page, path: 'challenge/pageview')
       ]),
       AutoRoute(
           guards: [AuthGuardApp(authenticationBloc)],
