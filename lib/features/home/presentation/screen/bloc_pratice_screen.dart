@@ -13,68 +13,76 @@ class BlocPraticeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          title: const Text('Pratice Bloc provider with clean architechture')),
-      body: Center(
-        child: Column(children: [
-          TextButton(
-              onPressed: () {
-                // final authenBloc =
-                //     Provider.of<AuthenticationBloc>(context, listen: false);
-                // context.watch<AuthenticationBloc>();
-                context.router.navigate(const TodoBlocRoute());
-                // context.router.root.navigate(const CounterPage());
-              },
-              child: const Text('Todo app')),
-          TextButton(
-              onPressed: () {
-                // context.router.navigateNamed('counter');
-                context.router.push(const CounterPage());
-              },
-              child: const Text('Counter')),
-          TextButton(
-              onPressed: () {
-                context.navigateNamedTo('bloc/timer');
-              },
-              child: const Text('Timer')),
-          TextButton(
-              onPressed: () {
-                context.navigateNamedTo('bloc/postsList');
-              },
-              child: const Text('List')),
-          TextButton(
-              onPressed: () {
-                context.navigateNamedTo('bloc/opacityAnimated');
-              },
-              child: const Text('Opacity animated')),
-          TextButton(
-              onPressed: () {
-                context.router.navigateNamed('/pratice-widget/bottom-tab');
-              },
-              child: const Text('Some bottom tab bar animated')),
-          TextButton(
-              onPressed: () {
-                context.router.navigateNamed('/pratice-widget/pageview');
-              },
-              child: const Text('PageView')),
-          TextButton(
-              onPressed: () {
-                context.router.navigateNamed('/pratice-widget/sliverListGrid');
-              },
-              child: const Text('sliverListGrid')),
-          TextButton(
-              onPressed: () {
-                context.router.navigateNamed('/pratice-widget/transform');
-              },
-              child: const Text('Transform')),
-          TextButton(
-              onPressed: () {
-                context.router
-                    .navigateNamed('/pratice-widget/challenge/pageview');
-              },
-              child: const Text('Challenge animate pageview'))
-        ]),
-      ),
-    );
+        appBar: AppBar(
+            title:
+                const Text('Pratice Bloc provider with clean architechture')),
+        body: Center(
+            child: SingleChildScrollView(
+          child: Column(children: [
+            TextButton(
+                onPressed: () {
+                  // final authenBloc =
+                  //     Provider.of<AuthenticationBloc>(context, listen: false);
+                  // context.watch<AuthenticationBloc>();
+                  context.router.navigate(const TodoBlocRoute());
+                  // context.router.root.navigate(const CounterPage());
+                },
+                child: const Text('Todo app')),
+            TextButton(
+                onPressed: () {
+                  // context.router.navigateNamed('counter');
+                  context.router.push(const CounterPage());
+                },
+                child: const Text('Counter')),
+            TextButton(
+                onPressed: () {
+                  context.navigateNamedTo('bloc/timer');
+                },
+                child: const Text('Timer')),
+            TextButton(
+                onPressed: () {
+                  context.navigateNamedTo('bloc/postsList');
+                },
+                child: const Text('List')),
+            TextButton(
+                onPressed: () {
+                  context.navigateNamedTo('bloc/opacityAnimated');
+                },
+                child: const Text('Opacity animated')),
+            TextButton(
+                onPressed: () {
+                  context.router.navigateNamed('/pratice-widget/bottom-tab');
+                },
+                child: const Text('Some bottom tab bar animated')),
+            TextButton(
+                onPressed: () {
+                  context.router.navigateNamed('/pratice-widget/pageview');
+                },
+                child: const Text('PageView')),
+            TextButton(
+                onPressed: () {
+                  context.router
+                      .navigateNamed('/pratice-widget/sliverListGrid');
+                },
+                child: const Text('sliverListGrid')),
+            TextButton(
+                onPressed: () {
+                  context.router.navigateNamed('/pratice-widget/transform');
+                },
+                child: const Text('Transform')),
+            TextButton(
+                onPressed: () {
+                  context.router
+                      .navigateNamed('/pratice-widget/challenge/pageview');
+                },
+                child: const Text('Challenge animate pageview')),
+            TextButton(
+                onPressed: () {
+                  context.router
+                      .navigateNamed('/pratice-widget/challenge/sytravel');
+                },
+                child: const Text('Challenge SY Travel')),
+          ]),
+        )));
   }
 }
